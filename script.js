@@ -20,10 +20,10 @@ function calculateLayout() {
     let isMobile = window.innerWidth < 768;
     
     // En móviles la caja de texto ocupa la parte de arriba, así que bajamos el centro de las flores (cy)
-    let yOffset = isMobile ? canvas.height * 0.65 : canvas.height * 0.45;
+    let yOffset = isMobile ? canvas.height * 0.5 : canvas.height * 0.45;
     
-    // Escala general para que se vean bien (un poco más pequeñas para que respire)
-    let s = isMobile ? 0.65 : 0.85;
+    // Escala general para que se vean bien
+    let s = isMobile ? 0.75 : 0.85;
     
     // Este cy representa la posición 'base' vertical de las cabezas de los girasoles
     cy = yOffset; 
