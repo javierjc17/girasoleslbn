@@ -229,15 +229,53 @@ body.started .envelope-btn {
     to { opacity: 1; }
 }
 
+.mobile-top-text {
+    display: none;
+}
+
 /* Responsividad para móviles */
 @media (max-width: 768px) {
-    #arch-text text {
-        font-size: 45px;
+    #arch-text {
+        display: none !important;
     }
     .content p {
-        font-size: 1rem;
-        padding: 0 15px;
+        display: none !important;
     }
+    
+    .mobile-top-text {
+        display: block;
+        position: absolute;
+        top: 10%;
+        width: 100%;
+        text-align: center;
+        z-index: 10;
+        pointer-events: none;
+    }
+    .mobile-title {
+        font-family: 'Dancing Script', cursive;
+        font-size: 3rem;
+        color: #ffda75;
+        margin: 0 0 15px 0;
+        opacity: 0;
+        filter: drop-shadow(0 0 10px rgba(255, 200, 0, 0.8));
+    }
+    .mobile-subtitle {
+        font-family: 'Quicksand', sans-serif;
+        font-size: 1.1rem;
+        color: #ffffff;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 0, 0, 0.9);
+        margin: 0;
+        padding: 0 20px;
+        opacity: 0;
+    }
+    
+    body.started .mobile-title {
+        animation: fadeIn 2s forwards 3s;
+    }
+    body.started .mobile-subtitle {
+        animation: fadeIn 2s forwards 4s;
+    }
+
     .heart-btn {
         font-size: 3rem;
     }
@@ -245,7 +283,7 @@ body.started .envelope-btn {
         font-size: 2.8rem;
     }
     .content {
-        bottom: 5%;
+        bottom: 12%; /* Botón un poco más arriba */
     }
     .modal-content {
         padding: 30px 25px; 

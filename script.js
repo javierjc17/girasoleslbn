@@ -15,26 +15,31 @@ function calculateLayout() {
     canvas.height = window.innerHeight;
     
     cx = canvas.width / 2;
-    // Factor de escala basado en el ancho (para que se achique en móviles)
-    let s = Math.min(1, canvas.width / 800); 
-    s = Math.max(0.45, s); // Limitar para que no sea microscópico
+    cy = canvas.height;
     
-    // Mientras más pequeña sea la flor (en móviles), más la subimos para que alcance el arco
-    let yOffset = 100 + ((1 - s) * 180); 
-    cy = canvas.height / 2 - yOffset; 
+    let isMobile = window.innerWidth < 768;
     
-    // Distancias máximas de separación para móviles
+    // En móviles la caja de texto ocupa la parte de arriba, así que bajamos el centro de las flores (cy)
+    let yOffset = isMobile ? canvas.height * 0.55 : canvas.height * 0.45;
+    
+    // Escala general para que se vean bien
+    let s = isMobile ? 0.75 : 0.85;
+    
+    // Este cy representa la posición 'base' vertical de las cabezas de los girasoles
+    cy = yOffset; 
+    
+    // Distancias laterales
     let leftSpacing = Math.min(200, canvas.width * 0.25);
     let rightSpacing = Math.min(230, canvas.width * 0.28);
     
-    // Configuración recalculable
+    // Configuración de las flores
     flowers = [
-        // Izquierda
-        { startX: cx, endX: cx - leftSpacing, endY: cy + (180 * s), maxScale: 0.38 * s, amp: -35 * s, delay: 0.4 },
-        // Derecha
-        { startX: cx, endX: cx + rightSpacing, endY: cy + (160 * s), maxScale: 0.44 * s, amp: 45 * s, delay: 0.2 },
-        // Centro (Principal)
-        { startX: cx, endX: cx, endY: cy, maxScale: 0.65 * s, amp: 50 * s, delay: 0 }
+        // Izquierda (ligeramente más baja y chiquita)
+        { startX: cx, endX: cx - leftSpacing, endY: cy + (100 * s), maxScale: 0.38 * s, amp: -35 * s, delay: 0.4 },
+        // Derecha (un poco más alta que la izquierda)
+        { startX: cx, endX: cx + rightSpacing, endY: cy + (80 * s), maxScale: 0.44 * s, amp: 45 * s, delay: 0.2 },
+        // Centro (Principal, es la más alta por lo que su endY es menor)
+        { startX: cx, endX: cx, endY: cy - (50 * s), maxScale: 0.65 * s, amp: 50 * s, delay: 0 }
     ];
 
     // Redistribuir luciérnagas por toda la pantalla actual
