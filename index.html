@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flor Amarilla</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Pantalla de Inicio (Intro) -->
+    <div id="intro-screen">
+        <div id="start-btn" class="heart-btn giant-heart">💛</div>
+        <p class="intro-text">Presióname...</p>
+    </div>
+
+    <canvas id="canvas"></canvas>
+    
+    <!-- Texto en arco superior -->
+    <svg id="arch-text" viewBox="0 0 600 250">
+        <!-- Ruta de arco más suave y natural -->
+        <path id="curve" d="M 50,180 Q 300,-10 550,180" fill="transparent" />
+        <text>
+            <textPath href="#curve" startOffset="50%" text-anchor="middle">
+                Con mucho cariño para ti
+            </textPath>
+        </text>
+    </svg>
+
+    <div class="content">
+        <p>Sabía que este 21 de septiembre no te podías quedar sin tu flor amarilla.</p>
+        <div class="buttons-container">
+            <div id="letter-btn" class="heart-btn envelope-btn" title="Leer carta">💌</div>
+        </div>
+        <audio id="audio" src="audio.mp3" loop></audio>
+    </div>
+    
+    <!-- Carta Popup (Modal) -->
+    <div id="letter-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" id="close-letter">✖</span>
+            <div class="letter-header">
+                <p><strong>Para:</strong> Libni</p>
+                <p><strong>De  :</strong> . . . . . .</p>
+            </div>
+            <div class="letter-text" id="typewriter-container">
+                <!-- El texto se escribirá aquí con JS -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #050505; /* Fondo súper oscuro para que resalte el brillo */
+    overflow: hidden;
+    font-family: 'Quicksand', sans-serif;
+    color: white;
+}
+
+canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.content {
+    position: absolute;
+    bottom: 8%;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    pointer-events: none; /* Para que no bloquee clics en el canvas si fuera necesario */
+}
+
+/* Pantalla de Inicio (Intro) */
+#intro-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #060402; /* Fondo muy oscuro y cálido */
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1.5s ease, visibility 1.5s ease;
+}
+
+#intro-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.giant-heart {
+    font-size: 6rem;
+    animation: heartbeat 1.2s infinite;
+    filter: drop-shadow(0 0 30px rgba(255, 200, 0, 0.8));
+    margin-bottom: 10px;
+    opacity: 1; /* override */
+}
+.giant-heart:hover {
+    transform: scale(1.1);
+}
+
+.intro-text {
+    font-family: 'Quicksand', sans-serif;
+    color: #ffda75;
+    font-size: 1.5rem;
+    animation: pulseText 2s infinite;
+}
+
+@keyframes pulseText {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; text-shadow: 0 0 15px rgba(255, 218, 117, 0.8); }
+}
+
+#arch-text {
+    position: absolute;
+    top: 1%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    max-width: 600px;
+    height: auto;
+    z-index: 10;
+    pointer-events: none;
+    opacity: 0;
+    filter: drop-shadow(0 0 15px rgba(255, 200, 0, 0.8));
+}
+body.started #arch-text {
+    animation: fadeIn 2s forwards 4s; /* Aparece después de los girasoles */
+}
+
+#arch-text text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 55px;
+    fill: #ffda75;
+}
+
+.content p {
+    font-size: 1.2rem;
+    opacity: 0;
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 0, 0, 0.9);
+    margin-bottom: 10px;
+}
+body.started .content p {
+    animation: fadeIn 2s forwards 5s;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.heart-btn {
+    margin-top: 10px;
+    font-size: 3.5rem;
+    cursor: pointer;
+    pointer-events: auto;
+    display: inline-block;
+    transition: transform 0.3s, filter 0.3s;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.envelope-btn {
+    font-size: 3.3rem;
+    opacity: 0;
+    filter: drop-shadow(0 0 15px rgba(255, 100, 100, 0.6));
+}
+body.started .envelope-btn {
+    animation: fadeIn 2s forwards 6.5s, heartbeat 1.5s infinite 8.5s;
+}
+
+.envelope-btn:hover {
+    animation-play-state: paused;
+    transform: scale(1.2) !important;
+    filter: drop-shadow(0 0 25px rgba(255, 100, 100, 1));
+}
+
+/* Modal de la Carta */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+.modal.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+.modal-content {
+    background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+    border: 2px solid #ffda75;
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 85%;
+    width: 500px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 0 40px rgba(255, 200, 0, 0.2);
+    transform: scale(1);
+    transition: transform 0.4s ease;
+}
+.modal.hidden .modal-content {
+    transform: scale(0.8);
+}
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+    color: #ffda75;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.close-btn:hover {
+    color: #fff;
+}
+.letter-header {
+    text-align: left;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 218, 117, 0.2);
+    padding-bottom: 10px;
+}
+.letter-header p {
+    font-family: 'Quicksand', sans-serif;
+    color: #ffda75;
+    font-size: 1.15rem;
+    margin: 5px 0;
+}
+.letter-header strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+.modal-content h2 {
+    font-family: 'Dancing Script', cursive;
+    color: #ffda75;
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+.letter-text {
+    font-family: 'Quicksand', sans-serif;
+    color: #e0e0e0;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    text-align: left;
+    min-height: 200px; /* Para que la carta no salte de tamaño al escribir */
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    15% { transform: scale(1.25); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+    60% { transform: scale(1); }
+    100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* Responsividad para móviles */
+@media (max-width: 768px) {
+    #arch-text text {
+        font-size: 45px;
+    }
+    .content p {
+        font-size: 1rem;
+        padding: 0 15px;
+    }
+    .heart-btn {
+        font-size: 3rem;
+    }
+    .envelope-btn {
+        font-size: 2.8rem;
+    }
+    .content {
+        bottom: 5%;
+    }
+    .modal-content {
+        padding: 30px 25px; 
+        width: 80%; /* Para separarlo más de los bordes de la pantalla */
+        max-width: 320px;
+    }
+    .modal-content h2 {
+        font-size: 2.2rem;
+    }
+    .letter-text {
+        font-size: 1rem;
+    }
+}
